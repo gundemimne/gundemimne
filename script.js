@@ -197,3 +197,22 @@ document.addEventListener('keydown', function(e) {
         document.getElementById('copy-modal').style.display = 'none';
     }
 });
+document.getElementById('share-on-x-btn').addEventListener('click', function() {
+    // Modalda gösterilen kartların başlıklarını al
+    const modalCards = document.querySelectorAll('#modal-content .modal-card h3');
+    const selectedTitles = Array.from(modalCards).map(h3 => h3.textContent.trim());
+
+    if (selectedTitles.length === 0) {
+        alert("Paylaşmak için seçili gündem yok.");
+        return;
+    }
+
+    let tweet = "Benim gündemim:\n";
+    selectedTitles.forEach((title, idx) => {
+        tweet += `${idx + 1}- ${title}\n`;
+    });
+    tweet += "\ngundemimne.com"; // Site adresini ekle
+
+    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet.trim())}`;
+    window.open(tweetUrl, '_blank');
+});

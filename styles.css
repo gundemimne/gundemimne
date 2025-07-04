@@ -204,26 +204,23 @@ header p {
 .action-button {
     width: 100%;
     padding: 1rem;
-    background: var(--primary);
-    color: #fff;
+    background: #23263a;
+    color: #d1d1d1;
     border: none;
     border-radius: 8px;
     font-size: 1.05rem;
     cursor: pointer;
     font-weight: 500;
     letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(26,34,56,0.08);
-    transition: background 0.2s, box-shadow 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.7rem;
+    box-shadow: none; /* Gölgeyi kaldırdık */
+    transition: background 0.2s, color 0.2s;
+    opacity: 0.92; /* Hafif matlık */
 }
 
 .action-button:hover {
-    background: var(--secondary);
-    color: var(--primary);
-    box-shadow: 0 4px 16px rgba(157,170,242,0.13);
+    background: #181a20;
+    color: #f4db7d;
+    opacity: 1;
 }
 
 .twitter-button {
