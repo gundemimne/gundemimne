@@ -1,0 +1,344 @@
+/* Elegant, formal color palette */
+:root {
+    --primary: #f4db7d;
+    --secondary: #22223b;
+    --accent: #9daaf2;
+    --background: #181a20;
+    --card-bg: #23263a;
+    --text: #f5f6fa;
+    --muted: #b0b3c6;
+    --shadow: 0 4px 24px rgba(26,34,56,0.18);
+}
+
+body {
+    font-family: 'Roboto', 'Georgia', serif;
+    background: var(--background);
+    color: var(--text);
+    linene-height: 1.7;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 1rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+header h1 {
+    font-family: 'Georgia', serif;
+    font-size: 2.8rem;
+    color: var(--primary);
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: var(--muted);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 2.5rem;
+}
+
+.interests-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.interest-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s, border 0.18s;
+    border: 2px solid transparent;
+    overflow: hidden;
+    position: relative;
+}
+
+.interest-card {
+    min-width: 0;
+}
+
+.interest-card h3,
+.interest-card p {
+    text-align: center;
+}
+
+.interest-card h3 {
+    margin: 1.2rem 0 0.5rem 0;
+}
+
+.interest-card p {
+    margin: 0 0 1.5rem 0;
+}
+
+.interest-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 8px 32px rgba(26,34,56,0.13);
+    border-color: var(--secondary);
+}
+
+.interest-card.selected {
+    border-color: var(--accent);
+    box-shadow: 0 8px 32px rgba(244,219,125,0.18);
+}
+
+.card-image {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background: #e9ecef;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.interest-card:hover .card-image img {
+    transform: scale(1.07);
+}
+
+.interest-card h3 {
+    color: var(--primary);
+    font-family: 'Georgia', serif;
+    margin: 1.2rem 1.5rem 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.interest-card p {
+    color: var(--muted);
+    font-size: 1rem;
+    margin: 0 1.5rem 1.5rem;
+}
+
+.selected-interests {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 2rem;
+    border: 1px solid #e9ecef;
+    height: auto;           /* Yüksekliği otomatik yap */
+    max-height: none;       /* Varsayılan bir max-height varsa kaldır */
+    overflow: visible;      /* Taşan içeriği gizleme */
+}
+.interests-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(340px, 1fr));
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.interest-card {
+    min-width: 340px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+/* ...existing code... */
+
+.selected-interests h2 {
+    color: var(--primary);
+    font-family: 'Georgia', serif;
+    margin-bottom: 1.2rem;
+    font-size: 1.3rem;
+}
+
+#selected-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+}
+
+.selected-tag {
+    background: var(--secondary);
+    color: var(--primary);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(157,170,242,0.08);
+}
+
+.selected-tag button {
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0 0.5rem;
+    transition: color 0.2s;
+}
+
+.selected-tag button:hover {
+    color: var(--accent);
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.action-button {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(26,34,56,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+}
+
+.action-button:hover {
+    background: var(--secondary);
+    color: var(--primary);
+    box-shadow: 0 4px 16px rgba(157,170,242,0.13);
+}
+
+.twitter-button {
+    background: #22223b;
+    color: #f4db7d;
+}
+
+.twitter-button:hover {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(26,34,56,0.85);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.modal-content {
+    position: relative;
+    background: var(--card-bg);
+    margin: 5% auto;
+    padding: 2.5rem 2rem 3.5rem 2rem;
+    width: 95%;
+    max-width: 700px;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(26,34,56,0.18);
+    border: 1px solid #e9ecef;
+}
+
+.modal-content h2 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.4rem;
+    font-family: 'Georgia', serif;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+    justify-items: center; /* Kartları ortala */
+}
+
+.modal-card {
+    background: #181a20;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(26,34,56,0.33);
+    border: 1px solid #23263a;
+    width: 100%;
+    max-width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; /* Tüm metni ortala */
+}
+
+.modal-card .card-image {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #23263a;
+}
+
+.modal-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.modal-card h3,
+.modal-card p {
+    text-align: center;
+    width: 100%;
+}
+
+.copy-button {
+    position: absolute;
+    bottom: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.7rem 1.5rem;
+    background: var(--accent);
+    color: var(--primary);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(244,219,125,0.13);
+    transition: background 0.2s, color 0.2s;
+}
+
+.copy-button:hover {
+    background: var(--primary);
+    color: var(--accent);
+}
+
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    .selected-interests {
+        position: static;
+        margin-top: 2rem;
+    }
+}

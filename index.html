@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gündemim Ne?</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gündemim Ne?</h1>
+            <p>Kendi Gündemini Belirt</p>
+        </header>
+
+        <div class="main-content">
+            <div class="interests-grid">
+
+                <div class="interest-card" data-interest="İmamoğlu Davası Gündemde">
+                    <div class="card-image">
+                        <img src="pics/imamoğlu-davası.png" alt="İmamoğlu Davası">
+                    </div>
+                    <h3>Ekrem İmamoğlu Davası</h3>
+                </div>
+                <div class="interest-card" data-interest="Yeni Anayasa Tartışmaları">
+                    <div class="card-image">
+                        <img src="pics/yeni-anayasa.png" alt="Yeni Anayasa">
+                    </div>
+                    <h3>Yeni Anayasa Tartışmaları</h3>
+                </div>
+
+                <div class="interest-card" data-interest="Ekonomik Kriz">
+                    <div class="card-image">
+                        <img src="pics/ekonomik-kriz.png" alt="Ekonomi">
+                    </div>
+                    <h3>Ekonomik Kriz</h3>
+                </div>
+
+                <div class="interest-card" data-interest="İkinci Çözüm Süreci">
+                    <div class="card-image">
+                        <img src="pics/cozum-sureci.png" alt="Çözüm Süreci">
+                    </div>
+                    <h3>İkinci Çözüm Süreci</h3>
+                </div>
+
+                <div class="interest-card" data-interest="Orman Yangınları">
+                    <div class="card-image">
+                        <img src="pics/izmir_yangin.png" alt="Yangın">
+                    </div>
+                    <h3>Orman Yangınları</h3>
+                </div>
+
+                <div class="interest-card" data-interest="Filistin">
+                    <div class="card-image">
+                        <img src="pics/filistin.png" alt="Filistin">
+                    </div>
+                    <h3>Filistin</h3>
+                </div>
+
+                <div class="interest-card" data-interest="CHP Kurultay Davası">
+                    <div class="card-image">
+                        <img src="pics/chp-kurultayi.png" alt="CHP Kurultayı">
+                    </div>
+                    <h3>CHP Kurultay Davası</h3>
+                </div>
+
+                <div class="interest-card" data-interest="İBB Operasyonu">
+                    <div class="card-image">
+                        <img src="pics/ibb-operasyonu.png" alt="İBB Operasyonu">
+                    </div>
+                    <h3>İBB Operasyonu</h3>
+                </div>
+
+                <div class="interest-card" data-interest="Sokak Köpekleri">
+                    <div class="card-image">
+                        <img src="pics/sokak-kopekleri.png" alt="Sokak Köpekleri">
+                    </div>
+                    <h3>Sokak Köpekleri</h3>
+                </div>
+
+                <div class="interest-card" data-interest="Tutuklanan Öğrenciler">
+                    <div class="card-image">
+                        <img src="pics/tutuklananogrenciler.png" alt="Tutuklanan Öğrenciler">
+                    </div>
+                    <h3>Tutuklanan Öğrenciler</h3>
+                </div>
+
+
+            </div>
+
+            <div class="selected-interests">
+                <h2>Selected Interests</h2>
+                <div id="selected-list"></div>
+                <div class="button-group">
+                    <button id="copy-selected-btn" class="action-button">Gündemlerimi Listele</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="copy-modal" class="modal">
+        <div class="modal-content">
+            <h2>Your Selected Interests</h2>
+            <div id="modal-content" class="modal-grid"></div>
+            <button id="close-modal-btn" class="action-button" style="margin: 0 auto; display: block; margin-top: 1rem;">Kapat</button>
+        </div>
+    </div>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
