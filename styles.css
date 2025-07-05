@@ -175,8 +175,6 @@ header p {
     height: auto;           /* Yüksekliği otomatik yap */
     max-height: none;       /* Varsayılan bir max-height varsa kaldır */
     overflow: visible;      /* Taşan içeriği gizleme */
-    margin-left: auto;
-    margin-right: auto;
 }
 .interests-grid {
     display: grid;
