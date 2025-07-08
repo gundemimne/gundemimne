@@ -9,21 +9,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyModal = document.getElementById('copy-modal');
     const copySelectedBtn = document.getElementById('copy-selected-btn');
     
-    let selectedInterests = new Set();
+    // Get the first card's interest
+    const firstInterest = interestCards[0].dataset.interest;
+    let selectedInterests = new Set([firstInterest]); // Always include the first
+    updateSelectedList(); // <-- This ensures the first card is shown on load
 
     // Handle interest card selection
-    interestCards.forEach(card => {
-        card.addEventListener('click', () => {
+    interestCards.forEach((card, idx) => {
+        card.addEventListener('click', function () {
+            if (idx === 0) return; // Prevent unselecting the first card
             const interest = card.dataset.interest;
             if (selectedInterests.has(interest)) {
                 selectedInterests.delete(interest);
                 card.classList.remove('selected');
-                updateSelectedList();
             } else {
                 selectedInterests.add(interest);
                 card.classList.add('selected');
-                updateSelectedList();
             }
+            updateSelectedList();
         });
     });
     function getTweetText(selectedInterests) {
@@ -57,22 +60,27 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateSelectedList() {
         selectedList.innerHTML = '';
         selectedInterests.forEach(interest => {
+            const isFirst = interest === firstInterest;
             const tag = document.createElement('div');
             tag.className = 'selected-tag';
             tag.innerHTML = `
                 ${interest}
-                <button onclick="removeInterest('${interest}')">&times;</button>
+                ${isFirst ? '' : `<button onclick="removeInterest('${interest}')">&times;</button>`}
             `;
             selectedList.appendChild(tag);
         });
     }
 
-    // Remove interest from selection
+    // Remove interest from selection (except first)
     window.removeInterest = (interest) => {
+        if (interest === firstInterest) return; // Prevent removing the first
         selectedInterests.delete(interest);
         document.querySelector(`[data-interest="${interest}"]`).classList.remove('selected');
         updateSelectedList();
     };
+
+    // Call once on load to show the first card in the list
+    updateSelectedList();
 
     // Create modal content with selected cards
     function createModalContent() {
