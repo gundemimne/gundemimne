@@ -1,226 +1,216 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const interestCards = document.querySelectorAll('.interest-card');
-    const selectedList = document.getElementById('selected-list');
-    const copyButton = document.getElementById('copy-button');
-    const shareButton = document.getElementById('share-button');
-    const modal = document.getElementById('copy-modal');
-    const modalContent = document.getElementById('modal-content');
-    
-    const copyModal = document.getElementById('copy-modal');
-    const copySelectedBtn = document.getElementById('copy-selected-btn');
-    
-    // Get the first card's interest
-    const firstInterest = interestCards[0].dataset.interest;
-    let selectedInterests = new Set([firstInterest]); // Always include the first
-    updateSelectedList(); // <-- This ensures the first card is shown on load
+/**
+ * Gündemim Ne — Selection & Poster Generation
+ */
 
-    // Handle interest card selection
-    interestCards.forEach((card, idx) => {
-        card.addEventListener('click', function () {
-            if (idx === 0) return; // Prevent unselecting the first card
-            const interest = card.dataset.interest;
-            if (selectedInterests.has(interest)) {
-                selectedInterests.delete(interest);
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.gundem-card');
+    const countEl = document.getElementById('card-count');
+    const actionBar = document.getElementById('action-bar');
+    const selectedCountEl = document.getElementById('selected-count');
+    const clearBtn = document.getElementById('clear-btn');
+    const posterBtn = document.getElementById('poster-btn');
+    const posterModal = document.getElementById('poster-modal');
+    const posterGrid = document.getElementById('poster-grid');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const downloadBtn = document.getElementById('download-btn');
+    const shareXBtn = document.getElementById('share-x-btn');
+
+    const selectedCards = new Set();
+
+    // Update card count in header
+    if (countEl) countEl.textContent = cards.length;
+
+    // Inject checkmark circles into each card (so we don't need them in HTML)
+    cards.forEach(card => {
+        const wrapper = card.querySelector('.card-img-wrapper');
+        if (wrapper && !wrapper.querySelector('.card-check')) {
+            const check = document.createElement('div');
+            check.className = 'card-check';
+            check.innerHTML = '<i class="fas fa-check"></i>';
+            wrapper.appendChild(check);
+        }
+    });
+
+    // Card click → toggle selection
+    cards.forEach((card, idx) => {
+        card.addEventListener('click', () => {
+            if (selectedCards.has(idx)) {
+                selectedCards.delete(idx);
                 card.classList.remove('selected');
             } else {
-                selectedInterests.add(interest);
+                selectedCards.add(idx);
                 card.classList.add('selected');
             }
-            updateSelectedList();
+            updateActionBar();
         });
     });
-    function getTweetText(selectedInterests) {
-        let tweet = "Benim gündemim:\n";
-        selectedInterests.forEach((interest, idx) => {
-            tweet += `${idx + 1}- ${interest}\n`;
-        });
-        return tweet.trim();
-    }
-    copyModal.addEventListener('click', function(e) {
-    if (e.target === copyModal) {
-        copyModal.style.display = 'none';
-    }
-    });
-    function getSelectedInterests() {
-        const tags = document.querySelectorAll('#selected-list .selected-tag');
-        return Array.from(tags).map(tag => tag.textContent.trim().replace('×', '').trim());
-    }
 
-    document.getElementById('share-button').addEventListener('click', function() {
-    const selectedInterests = getSelectedInterests();
-    if (selectedInterests.length === 0) {
-        alert("Lütfen en az bir gündem seçin.");
-        return;
-    }
-    const tweetText = getTweetText(selectedInterests);
-    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
-    window.open(tweetUrl, '_blank');
-    });
-    // Update the selected interests display
-    function updateSelectedList() {
-        selectedList.innerHTML = '';
-        selectedInterests.forEach(interest => {
-            const isFirst = interest === firstInterest;
-            const tag = document.createElement('div');
-            tag.className = 'selected-tag';
-            tag.innerHTML = `
-                ${interest}
-                ${isFirst ? '' : `<button onclick="removeInterest('${interest}')">&times;</button>`}
-            `;
-            selectedList.appendChild(tag);
-        });
-    }
-
-    // Remove interest from selection (except first)
-    window.removeInterest = (interest) => {
-        if (interest === firstInterest) return; // Prevent removing the first
-        selectedInterests.delete(interest);
-        document.querySelector(`[data-interest="${interest}"]`).classList.remove('selected');
-        updateSelectedList();
-    };
-
-    // Call once on load to show the first card in the list
-    updateSelectedList();
-
-    // Create modal content with selected cards
-    function createModalContent() {
-        if (selectedInterests.size === 0) {
-            alert('Please select at least one interest');
-            return;
+    function updateActionBar() {
+        const count = selectedCards.size;
+        selectedCountEl.textContent = count;
+        if (count > 0) {
+            actionBar.classList.add('visible');
+        } else {
+            actionBar.classList.remove('visible');
         }
-
-        modalContent.innerHTML = '';
-        
-        // Add copy button at the top right
-        const copyButton = document.createElement('button');
-        copyButton.className = 'copy-button';
-        copyButton.textContent = 'Copy to Clipboard';
-        copyButton.onclick = () => {
-            const interestsText = Array.from(selectedInterests).join(', ');
-            copyToClipboard(interestsText);
-        };
-        modalContent.appendChild(copyButton);
-
-        const grid = document.createElement('div');
-        grid.className = 'modal-grid';
-
-        selectedInterests.forEach(interest => {
-            const card = document.querySelector(`[data-interest="${interest}"]`);
-            const modalCard = document.createElement('div');
-            modalCard.className = 'modal-card';
-            modalCard.innerHTML = `
-                <div class="card-image">
-                    <img src="${card.querySelector('img').src}" alt="${interest}">
-                </div>
-                <h3>${interest}</h3>
-                <p>${card.querySelector('p').textContent}</p>
-            `;
-            grid.appendChild(modalCard);
-        });
-
-        modalContent.appendChild(grid);
-        modal.style.display = 'block';
     }
 
-    // Handle copy button click
-    copyButton.addEventListener('click', () => {
-        createModalContent();
+    // Clear all
+    clearBtn.addEventListener('click', () => {
+        selectedCards.clear();
+        cards.forEach(c => c.classList.remove('selected'));
+        updateActionBar();
     });
 
-    // Handle share button click
-    shareButton.addEventListener('click', () => {
-        if (selectedInterests.size === 0) {
-            alert('Please select at least one interest');
-            return;
-        }
-
-        const interestsText = Array.from(selectedInterests).join(', ');
-        const tweetText = encodeURIComponent(`My selected journal interests: ${interestsText}`);
-        const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
-        window.open(twitterUrl, '_blank', 'width=600,height=400');
+    // Generate poster
+    posterBtn.addEventListener('click', () => {
+        if (selectedCards.size === 0) return;
+        buildPoster();
+        posterModal.classList.add('visible');
+        document.body.style.overflow = 'hidden';
     });
 
-    // Close modal when clicking outside
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
+    function buildPoster() {
+        posterGrid.innerHTML = '';
 
-    // Copy to clipboard function
-    window.copyToClipboard = (text) => {
-        navigator.clipboard.writeText(text).then(() => {
-            alert('Copied to clipboard!');
-        }).catch(err => {
-            console.error('Failed to copy text: ', err);
-            alert('Failed to copy text. Please try again.');
-        });
-    };
+        // Decide grid columns based on count
+        const count = selectedCards.size;
+        let cols;
+        if (count <= 3) cols = count;
+        else if (count <= 6) cols = 3;
+        else cols = 4;
+        posterGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
-    // Show modal when clicking on selected interests
-    selectedList.addEventListener('click', (event) => {
-        if (event.target === selectedList || event.target.parentElement === selectedList) {
-            createModalContent();
-        }
-    });
-}); 
-
-document.getElementById('copy-selected-btn').addEventListener('click', function() {
-    const selectedCards = document.querySelectorAll('.interest-card.selected');
-    const modalContent = document.getElementById('modal-content');
-    modalContent.innerHTML = '';
-
-    if (selectedCards.length === 0) {
-        modalContent.innerHTML = '<p style="color:#fff;text-align:center;">Hiçbir kart seçilmedi.</p>';
-    } else {
-        selectedCards.forEach(card => {
+        selectedCards.forEach(idx => {
+            const card = cards[idx];
             const img = card.querySelector('img');
-            const title = card.querySelector('h3') ? card.querySelector('h3').textContent : '';
-            const desc = card.querySelector('p') ? card.querySelector('p').textContent : '';
+            const title = card.querySelector('h3').textContent;
+            const imgSrc = img.getAttribute('src'); // relative path
 
-            const modalCard = document.createElement('div');
-            modalCard.className = 'modal-card';
-            modalCard.innerHTML = `
-                <div class="card-image">
-                    ${img ? `<img src="${img.src}" alt="${img.alt}">` : ''}
-                </div>
-                <h3>${title}</h3>
-                ${desc ? `<p>${desc}</p>` : ''}
+            const item = document.createElement('div');
+            item.className = 'poster-item';
+            item.innerHTML = `
+                <img src="${imgSrc}" alt="${title}">
+                <div class="poster-item-title">${title}</div>
             `;
-            modalContent.appendChild(modalCard);
+            posterGrid.appendChild(item);
         });
     }
 
-    document.getElementById('copy-modal').style.display = 'block';
-});
-
-// Modalı kapatmak için kapat butonu
-document.getElementById('close-modal-btn').addEventListener('click', function() {
-    document.getElementById('copy-modal').style.display = 'none';
-});
-
-// Modalı kapatmak için ESC tuşu
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        document.getElementById('copy-modal').style.display = 'none';
-    }
-});
-document.getElementById('share-on-x-btn').addEventListener('click', function() {
-    // Modalda gösterilen kartların başlıklarını al
-    const modalCards = document.querySelectorAll('#modal-content .modal-card h3');
-    const selectedTitles = Array.from(modalCards).map(h3 => h3.textContent.trim());
-
-    if (selectedTitles.length === 0) {
-        alert("Paylaşmak için seçili gündem yok.");
-        return;
-    }
-
-    let tweet = "Benim gündemim:\n";
-    selectedTitles.forEach((title, idx) => {
-        tweet += `${idx + 1}- ${title}\n`;
+    // Close modal
+    closeModalBtn.addEventListener('click', closeModal);
+    posterModal.addEventListener('click', (e) => {
+        if (e.target === posterModal) closeModal();
     });
-    tweet += "\ngundemimne.com"; // Site adresini ekle
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
 
-    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet.trim())}`;
-    window.open(tweetUrl, '_blank');
+    function closeModal() {
+        posterModal.classList.remove('visible');
+        document.body.style.overflow = '';
+    }
+
+    // Download poster as PNG
+    downloadBtn.addEventListener('click', () => {
+        const canvas = document.getElementById('poster-canvas');
+        html2canvas(canvas, {
+            backgroundColor: '#0d0f14',
+            scale: 2,
+            allowTaint: true,
+            logging: false
+        }).then(renderedCanvas => {
+            const link = document.createElement('a');
+            link.download = 'benim-gundemim.png';
+            link.href = renderedCanvas.toDataURL('image/png');
+            link.click();
+        }).catch(err => {
+            console.error('Poster oluşturma hatası:', err);
+            alert('Poster oluşturulurken bir hata oluştu.');
+        });
+    });
+
+    // Share on X — copy poster image to clipboard, then open tweet compose
+    shareXBtn.addEventListener('click', () => {
+        const canvas = document.getElementById('poster-canvas');
+        const originalText = shareXBtn.innerHTML;
+
+        shareXBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Hazırlanıyor...';
+        shareXBtn.disabled = true;
+
+        html2canvas(canvas, {
+            backgroundColor: '#0d0f14',
+            scale: 2,
+            allowTaint: true,
+            logging: false
+        }).then(renderedCanvas => {
+            renderedCanvas.toBlob(blob => {
+                if (blob && navigator.clipboard && window.ClipboardItem) {
+                    navigator.clipboard.write([
+                        new ClipboardItem({ 'image/png': blob })
+                    ]).then(() => {
+                        // Open X with pre-filled text
+                        let tweet = 'Benim gündemim:\n\ngundemimne.com';
+                        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet)}`;
+                        window.open(url, '_blank');
+
+                        // Show success feedback
+                        shareXBtn.innerHTML = '<i class="fas fa-check"></i> Poster kopyalandı! Yapıştır (Ctrl+V)';
+                        shareXBtn.disabled = false;
+                        setTimeout(() => {
+                            shareXBtn.innerHTML = originalText;
+                        }, 5000);
+                    }).catch(() => {
+                        // Clipboard failed — fallback to text only
+                        fallbackShareText();
+                        shareXBtn.innerHTML = originalText;
+                        shareXBtn.disabled = false;
+                    });
+                } else {
+                    // Clipboard API not available — fallback
+                    fallbackShareText();
+                    shareXBtn.innerHTML = originalText;
+                    shareXBtn.disabled = false;
+                }
+            }, 'image/png');
+        }).catch(() => {
+            fallbackShareText();
+            shareXBtn.innerHTML = originalText;
+            shareXBtn.disabled = false;
+        });
+
+        function fallbackShareText() {
+            const titles = [];
+            selectedCards.forEach(idx => {
+                titles.push(cards[idx].querySelector('h3').textContent);
+            });
+            let tweet = 'Benim gündemim:\n';
+            titles.forEach((t, i) => {
+                tweet += `${i + 1}. ${t}\n`;
+            });
+            tweet += '\ngundemimne.com';
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet.trim())}`;
+            window.open(url, '_blank');
+        }
+    });
+
+    // IntersectionObserver for scroll-triggered card reveal
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        cards.forEach(card => {
+            card.style.animationPlayState = 'paused';
+            observer.observe(card);
+        });
+    }
 });

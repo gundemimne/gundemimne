@@ -1,155 +1,254 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gündemim Ne?</title>
+    <title>Gündemim Ne? — Arşiv</title>
+    <meta name="description" content="Türkiye'nin gündemindeki konuları keşfedin. Gündemim Ne arşivi.">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
+    <!-- Ambient background glow -->
+    <div class="ambient-glow"></div>
+
     <div class="container">
         <header>
+            <div class="header-badge">ARŞİV</div>
             <h1>Gündemim Ne?</h1>
-            <p>Kendi Gündemini Belirt</p>
+            <p class="subtitle">Gündemlerini seç, posterini oluştur, paylaş.</p>
+            <div class="header-divider"></div>
+            <div class="archive-stats">
+                <span><i class="fas fa-layer-group"></i> <strong id="card-count">16</strong> Gündem</span>
+                <span class="stats-dot"></span>
+                <span><i class="fas fa-clock"></i> Sürekli Güncelleniyor</span>
+            </div>
         </header>
 
-        <div class="main-content">
-            <div class="interests-grid">
-                <div class="interest-card selected" data-interest="Şehit Askerlerimiz">
-                    <div class="card-image">
-                        <img src="pics/sehit.png" alt="Şehit Askerlerimiz">
-                    </div>
+        <div class="archive-grid" id="archive-grid">
+
+            <article class="gundem-card" data-category="askeriye">
+                <div class="card-img-wrapper">
+                    <img src="pics/sehit.png" alt="Şehit Askerlerimiz" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-check"><i class="fas fa-check"></i></div>
+
+                </div>
+                <div class="card-body">
                     <h3>Şehit Askerlerimiz</h3>
                 </div>
-                <div class="interest-card" data-interest="Tutuklanan Belediye Başkanları">
-                    <div class="card-image">
-                        <img src="pics/belediye-baskanları.png" alt="Tutuklanan Belediye Başkanları">
-                    </div>
+            </article>
+
+            <article class="gundem-card" data-category="siyaset">
+                <div class="card-img-wrapper">
+                    <img src="pics/belediye-baskanları.png" alt="Tutuklanan Belediye Başkanları" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-check"><i class="fas fa-check"></i></div>
+                </div>
+                <div class="card-body">
                     <h3>Tutuklanan Belediye Başkanları</h3>
                 </div>
-                <div class="interest-card" data-interest="İmamoğlu Davası Gündemde">
-                    <div class="card-image">
-                        <img src="pics/imamoğlu-davası.png" alt="İmamoğlu Davası">
-                    </div>
+            </article>
+
+            <article class="gundem-card" data-category="hukuk">
+                <div class="card-img-wrapper">
+                    <img src="pics/imamoğlu-davası.png" alt="Ekrem İmamoğlu Davası" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>Ekrem İmamoğlu Davası</h3>
                 </div>
-                <div class="interest-card" data-interest="Yeni Anayasa Tartışmaları">
-                    <div class="card-image">
-                        <img src="pics/yeni-anayasa.png" alt="Yeni Anayasa">
-                    </div>
+            </article>
+
+            <article class="gundem-card" data-category="siyaset">
+                <div class="card-img-wrapper">
+                    <img src="pics/yeni-anayasa.png" alt="Yeni Anayasa Tartışmaları" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>Yeni Anayasa Tartışmaları</h3>
                 </div>
+            </article>
 
-                <div class="interest-card" data-interest="Ekonomik Kriz">
-                    <div class="card-image">
-                        <img src="pics/ekonomik-kriz.png" alt="Ekonomi">
-                    </div>
+            <article class="gundem-card" data-category="ekonomi">
+                <div class="card-img-wrapper">
+                    <img src="pics/ekonomik-kriz.png" alt="Ekonomik Kriz" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>Ekonomik Kriz</h3>
                 </div>
+            </article>
 
-                <div class="interest-card" data-interest="İkinci Çözüm Süreci">
-                    <div class="card-image">
-                        <img src="pics/cozum-sureci.png" alt="Çözüm Süreci">
-                    </div>
+            <article class="gundem-card" data-category="siyaset">
+                <div class="card-img-wrapper">
+                    <img src="pics/cozum-sureci.png" alt="İkinci Çözüm Süreci" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>İkinci Çözüm Süreci</h3>
                 </div>
+            </article>
 
-                <div class="interest-card" data-interest="Orman Yangınları">
-                    <div class="card-image">
-                        <img src="pics/izmir_yangin.png" alt="Yangın">
-                    </div>
+            <article class="gundem-card" data-category="cevre">
+                <div class="card-img-wrapper">
+                    <img src="pics/izmir_yangin.png" alt="Orman Yangınları" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>Orman Yangınları</h3>
                 </div>
+            </article>
 
-                <div class="interest-card" data-interest="Filistin">
-                    <div class="card-image">
-                        <img src="pics/filistin.png" alt="Filistin">
-                    </div>
+            <article class="gundem-card" data-category="dış-politika">
+                <div class="card-img-wrapper">
+                    <img src="pics/filistin.png" alt="Filistin" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>Filistin</h3>
                 </div>
+            </article>
 
-                <div class="interest-card" data-interest="CHP Kurultay Davası">
-                    <div class="card-image">
-                        <img src="pics/chp-kurultayi.png" alt="CHP Kurultayı">
-                    </div>
+            <article class="gundem-card" data-category="hukuk">
+                <div class="card-img-wrapper">
+                    <img src="pics/chp-kurultayi.png" alt="CHP Kurultay Davası" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>CHP Kurultay Davası</h3>
                 </div>
+            </article>
 
-                <div class="interest-card" data-interest="İBB Operasyonu">
-                    <div class="card-image">
-                        <img src="pics/ibb-operasyonu.png" alt="İBB Operasyonu">
-                    </div>
+            <article class="gundem-card" data-category="hukuk">
+                <div class="card-img-wrapper">
+                    <img src="pics/ibb-operasyonu.png" alt="İBB Operasyonu" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>İBB Operasyonu</h3>
                 </div>
+            </article>
 
-                <div class="interest-card" data-interest="Sokak Köpekleri">
-                    <div class="card-image">
-                        <img src="pics/sokak-kopekleri.png" alt="Sokak Köpekleri">
-                    </div>
+            <article class="gundem-card" data-category="toplum">
+                <div class="card-img-wrapper">
+                    <img src="pics/sokak-kopekleri.png" alt="Başıboş Köpek Sorunu" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>Başıboş Köpek Sorunu</h3>
                 </div>
+            </article>
 
-                <div class="interest-card" data-interest="Tutuklanan Öğrenciler">
-                    <div class="card-image">
-                        <img src="pics/tutuklananogrenciler.png" alt="Tutuklanan Öğrenciler">
-                    </div>
+            <article class="gundem-card" data-category="hukuk">
+                <div class="card-img-wrapper">
+                    <img src="pics/tutuklananogrenciler.png" alt="Tutuklanan Öğrenciler" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>Tutuklanan Öğrenciler</h3>
                 </div>
-                <div class="interest-card" data-interest="Yüksek Vergiler">
-                    <div class="card-image">
-                        <img src="pics/vergi.png" alt="Yüksek Vergiler">
-                    </div>
+            </article>
+
+            <article class="gundem-card" data-category="ekonomi">
+                <div class="card-img-wrapper">
+                    <img src="pics/vergi.png" alt="Yüksek Vergiler" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>Yüksek Vergiler</h3>
                 </div>
-                 <div class="interest-card" data-interest="Erişim Engelleri">
-                    <div class="card-image">
-                        <img src="pics/erişim-engelleri.png" alt="Erişim Engelleri">
-                    </div>
+            </article>
+
+            <article class="gundem-card" data-category="medya">
+                <div class="card-img-wrapper">
+                    <img src="pics/erişim-engelleri.png" alt="Erişim Engelleri" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>Erişim Engelleri</h3>
-                  </div>
-                <div class="interest-card" data-interest="Leman Dergisi Soruşturması">
-                    <div class="card-image">
-                        <img src="pics/leman.png" alt="Leman Dergisi Olayları">
-                    </div>
+                </div>
+            </article>
+
+            <article class="gundem-card" data-category="medya">
+                <div class="card-img-wrapper">
+                    <img src="pics/leman.png" alt="Leman Dergisi Soruşturması" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>Leman Dergisi Soruşturması</h3>
                 </div>
-              
-                  <div class="interest-card" data-interest="Ekran Karartma Kararları">
-                    <div class="card-image">
-                        <img src="pics/rtuk-karartmaları.png" alt="Ekran Karartma Kararları">
-                    </div>
+            </article>
+
+            <article class="gundem-card" data-category="medya">
+                <div class="card-img-wrapper">
+                    <img src="pics/rtuk-karartmaları.png" alt="Ekran Karartma Kararları" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
                     <h3>Ekran Karartma Kararları</h3>
                 </div>
+            </article>
 
+        </div>
+    </div>
 
+    <!-- Floating Action Bar -->
+    <div class="action-bar" id="action-bar">
+        <div class="action-bar-inner">
+            <span class="action-bar-count"><strong id="selected-count">0</strong> gündem seçildi</span>
+            <div class="action-bar-buttons">
+                <button id="clear-btn" class="ab-btn ab-btn-ghost"><i class="fas fa-times"></i> Temizle</button>
+                <button id="poster-btn" class="ab-btn ab-btn-primary"><i class="fas fa-image"></i> Poster
+                    Oluştur</button>
             </div>
+        </div>
+    </div>
 
-            <div class="selected-interests">
-                <h2>Seçilen Gündemler</h2>
-                <div id="selected-list"></div>
-                <div class="button-group">
-                    <button id="copy-selected-btn" class="action-button">Gündemlerimi Listele</button>
+    <!-- Poster Modal -->
+    <div class="poster-modal" id="poster-modal">
+        <div class="poster-modal-content">
+            <div class="poster-modal-header">
+                <h2>Poster Önizleme</h2>
+                <button id="close-modal-btn" class="modal-close-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="poster-preview-area" id="poster-preview-area">
+                <!-- Poster will be rendered here -->
+                <div id="poster-canvas" class="poster-canvas">
+                    <div class="poster-header">
+                        <h2 class="poster-title">Benim Gündemim</h2>
+                        <div class="poster-divider"></div>
+                    </div>
+                    <div class="poster-grid" id="poster-grid"></div>
+                    <div class="poster-footer">
+                        <span>gundemimne.com</span>
+                    </div>
                 </div>
             </div>
+            <div class="poster-modal-actions">
+                <button id="download-btn" class="ab-btn ab-btn-primary"><i class="fas fa-download"></i> PNG
+                    İndir</button>
+                <button id="share-x-btn" class="ab-btn ab-btn-twitter"><i class="fab fa-x-twitter"></i> X'te
+                    Paylaş</button>
+            </div>
         </div>
     </div>
 
-    <div id="copy-modal" class="modal">
-        <div class="modal-content">
-            <h2>Seçilen Gündemlerin</h2>
-            <div id="modal-content" class="modal-grid"></div>
-            <button id="share-on-x-btn" class="action-button twitter-button" style="margin: 0 auto; display: block; margin-bottom: 1rem;">
-                <i class="fab fa-x-twitter"></i> X'te Paylaş
-            </button>
-            <button id="close-modal-btn" class="action-button" style="margin: 0 auto; display: block; margin-top: 0.5rem;">Kapat</button>
+    <footer>
+        <div class="footer-content">
+            <p>Yeni gündem eklemek için <a href="mailto:gundemimnee@gmail.com">gundemimnee@gmail.com</a> adresine mail
+                atınız.</p>
+            <p class="footer-copy">© 2025 Gündemim Ne?</p>
         </div>
-    </div>
+    </footer>
+
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
-    <footer style="width:100%;text-align:center;margin:2rem 0 1rem 0;color:#b0b3c6;font-size:1rem;">
-    Yeni gündem eklemek için <a href="mailto:gundemimnee@gmail.com" style="color:#f4db7d;text-decoration:underline;">gundemimnee@gmail.com</a>'a mail atınız
-</footer>
+
 </html>
