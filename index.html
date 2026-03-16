@@ -24,7 +24,7 @@
             <p class="subtitle">Gündemlerini seç, posterini oluştur, paylaş.</p>
             <div class="header-divider"></div>
             <div class="archive-stats">
-                <span><i class="fas fa-layer-group"></i> <strong id="card-count">16</strong> Gündem</span>
+                <span><i class="fas fa-layer-group"></i> <strong id="card-count">0</strong> Gündem</span>
                 <span class="stats-dot"></span>
                 <span><i class="fas fa-clock"></i> Sürekli Güncelleniyor</span>
             </div>
@@ -175,28 +175,75 @@
                 </div>
             </article>
 
-            <article class="gundem-card" data-category="medya">
+            <article class="gundem-card" data-category="dış-politika">
                 <div class="card-img-wrapper">
-                    <img src="pics/leman.png" alt="Leman Dergisi Soruşturması" loading="lazy">
+                    <img src="pics/epstein.png" alt="Epstein Dosyası" loading="lazy">
                     <div class="card-overlay"></div>
                 </div>
                 <div class="card-body">
-                    <h3>Leman Dergisi Soruşturması</h3>
+                    <h3>Epstein Dosyası</h3>
+                </div>
+            </article>
+
+            <article class="gundem-card" data-category="dış-politika">
+                <div class="card-img-wrapper">
+                    <img src="pics/iran_israil.png" alt="İran-İsrail Gerilimi" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
+                    <h3>İran-İsrail Gerilimi</h3>
                 </div>
             </article>
 
             <article class="gundem-card" data-category="medya">
                 <div class="card-img-wrapper">
-                    <img src="pics/rtuk-karartmaları.png" alt="Ekran Karartma Kararları" loading="lazy">
+                    <img src="pics/ifade-ozgurlugu.png" alt="İfade Özgürlüğü" loading="lazy">
                     <div class="card-overlay"></div>
                 </div>
                 <div class="card-body">
-                    <h3>Ekran Karartma Kararları</h3>
+                    <h3>İfade Özgürlüğü</h3>
+                </div>
+            </article>
+
+            <article class="gundem-card" data-category="toplum">
+                <div class="card-img-wrapper">
+                    <img src="pics/kadin_ci.png" alt="Kadın Cinayetleri" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
+                    <h3>Kadın Cinayetleri</h3>
+                </div>
+            </article>
+
+            <article class="gundem-card" data-category="toplum">
+                <div class="card-img-wrapper">
+                    <img src="pics/oyunumadokunma.png" alt="Oyunuma Dokunma" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
+                    <h3>Oyunuma Dokunma</h3>
+                </div>
+            </article>
+
+            <article class="gundem-card" data-category="ekonomi">
+                <div class="card-img-wrapper">
+                    <img src="pics/issizlik.png" alt="İşsizlik" loading="lazy">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-body">
+                    <h3>İşsizlik</h3>
                 </div>
             </article>
 
         </div>
     </div>
+
+    <script>
+        (function () {
+            var el = document.getElementById('card-count');
+            if (el) el.textContent = document.querySelectorAll('.gundem-card').length;
+        })();
+    </script>
 
     <!-- Floating Action Bar -->
     <div class="action-bar" id="action-bar">
@@ -204,8 +251,7 @@
             <span class="action-bar-count"><strong id="selected-count">0</strong> gündem seçildi</span>
             <div class="action-bar-buttons">
                 <button id="clear-btn" class="ab-btn ab-btn-ghost"><i class="fas fa-times"></i> Temizle</button>
-                <button id="poster-btn" class="ab-btn ab-btn-primary"><i class="fas fa-image"></i> Poster
-                    Oluştur</button>
+                <button id="poster-btn" class="ab-btn ab-btn-primary"><i class="fas fa-image"></i> Poster Oluştur</button>
             </div>
         </div>
     </div>
